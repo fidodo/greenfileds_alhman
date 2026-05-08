@@ -4,15 +4,13 @@ import {
   GiCalendar,
   GiAlarmClock,
   GiFarmer,
-  GiGrapes,
   GiCow,
   GiCampfire,
   GiPumpkin,
-  GiChristmasTree,
   GiSunflower,
   GiSatelliteCommunication,
 } from "react-icons/gi";
-import { FaTree, FaSeedling, FaLeaf, FaSnowman } from "react-icons/fa";
+import { FaSeedling } from "react-icons/fa";
 import styles from "./UpcomingEvents.module.css";
 
 const UpcomingEvents = () => {
@@ -28,8 +26,8 @@ const UpcomingEvents = () => {
       },
       category: "workshop",
       icon: <GiSunflower size={24} />,
-      date: "September 15, 2025",
-      time: "10:00 AM - 12:00 PM",
+      date: "May 16, 2026",
+      time: "10:00 AM - 2:00 PM",
       location: "Apiary",
       description:
         "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
