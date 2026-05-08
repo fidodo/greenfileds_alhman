@@ -1,0 +1,428 @@
+/* src/components/UpcomingEvents.module.css */
+.events {
+  padding: 5rem 0;
+  background: var(--cream);
+  transition: background 0.5s ease;
+}
+
+/* Seasonal Themes */
+.spring {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+}
+
+.summer {
+  background: linear-gradient(135deg, #fff9c4 0%, #fff4e6 100%);
+}
+
+.fall {
+  background: linear-gradient(135deg, #ffe0b2 0%, #ffccbc 100%);
+}
+
+.winter {
+  background: linear-gradient(135deg, #e3f2fd 0%, #e8eaf6 100%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectionLabel {
+  color: var(--secondary-amber);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 1rem auto 0;
+  font-size: 1.125rem;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+}
+
+.filterBtn:hover {
+  border-color: var(--secondary-amber);
+  transform: translateY(-2px);
+}
+
+.activeFilter {
+  background: var(--secondary-amber);
+  border-color: var(--secondary-amber);
+  color: white;
+}
+
+.filterIcon {
+  font-size: 1rem;
+}
+
+/* Events Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.eventCard {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.eventCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cardImage {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.eventCard:hover .cardImage img {
+  transform: scale(1.05);
+}
+
+.cardCategory {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--secondary-amber);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-transform: capitalize;
+}
+
+.cardContent {
+  padding: 1.5rem;
+}
+
+.eventTitle {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.detailIcon {
+  color: var(--secondary-amber);
+  font-size: 0.9rem;
+}
+
+.eventDescription {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.eventFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.eventPrice {
+  color: var(--primary-green);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.learnMoreBtn {
+  background: none;
+  border: none;
+  color: var(--secondary-amber);
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.learnMoreBtn:hover {
+  color: var(--primary-green);
+}
+
+/* Newsletter Section */
+.newsletter {
+  background: linear-gradient(
+    135deg,
+    var(--primary-green) 0%,
+    var(--primary-dark) 100%
+  );
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  color: white;
+}
+
+.newsletterContent h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.newsletterContent p {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletterForm input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+}
+
+.newsletterForm input:focus {
+  outline: none;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: var(--shadow);
+}
+
+.modalImage {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.modalBody {
+  padding: 2rem;
+}
+
+.modalBody h2 {
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.modalDetails {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modalDetail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.modalDescription {
+  color: var(--text-light);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.highlights {
+  background: var(--earth-beige);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.highlights h4 {
+  margin-bottom: 0.75rem;
+  color: var(--primary-green);
+}
+
+.highlights ul {
+  list-style: none;
+  padding: 0;
+}
+
+.highlights li {
+  padding: 0.25rem 0;
+  color: var(--text-dark);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modalPrice {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-green);
+}
+
+.modalCapacity {
+  color: var(--text-light);
+}
+
+.registerBtn {
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    gap: 0.5rem;
+  }
+
+  .filterBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .newsletter {
+    padding: 2rem;
+  }
+
+  .newsletterForm {
+    flex-direction: column;
+  }
+
+  .modal {
+    padding: 1rem;
+  }
+
+  .modalBody {
+    padding: 1.5rem;
+  }
+
+  .modalDetails {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

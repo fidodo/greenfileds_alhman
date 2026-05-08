@@ -1,13 +1,181 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* src/index.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+:root {
+  --primary-green: #2a5c3e;
+  --primary-dark: #1e3d2a;
+  --primary-light: #4a8364;
+  --secondary-amber: #d4a55a;
+  --secondary-brown: #7c5e3a;
+  --cream: #fdf8ed;
+  --earth-beige: #f0ebe1;
+  --text-dark: #2c2c2c;
+  --text-light: #6b6b6b;
+  --white: #ffffff;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--text-dark);
+  background-color: var(--cream);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+section {
+  padding: 5rem 0;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--primary-green);
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px solid var(--primary-green);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-green);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary-amber);
+  margin: 1rem auto 0;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+}
+/* src/index.css - Add to existing */
+.btn-primary {
+  display: inline-block;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--primary-green);
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px solid var(--primary-green);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: white;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-green);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary-amber);
+  margin: 1rem auto 0;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
 }
