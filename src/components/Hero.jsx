@@ -4,7 +4,7 @@ import styles from "./Hero.module.css";
 
 const Hero = () => {
   const heroStyle = {
-    backgroundImage: 'url("/Alhmannoverview.png")',
+    backgroundImage: 'url("/Ahlmannoverview.png")',
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundAttachment: "fixed",
@@ -41,7 +41,7 @@ const Hero = () => {
       <div className={styles.overlay}></div>
       <div className="container">
         <div className={styles.content}>
-          <div className={styles.badge}>ALHMAN EDU's PLAYGROUND</div>
+          <div className={styles.badge}>AHLMAN EDU's PLAYGROUND</div>
           <h1 className={styles.title}>
             16 Hectares of{" "}
             <span className={styles.highlight}>

@@ -91,7 +91,7 @@ const Navbar = () => {
                 padding: "4px 8px",
               }}
             >
-              <span className={styles.logoMain}>AlhmanEdu</span>
+              <span className={styles.logoMain}>AhlmanEdu</span>
               <span className={styles.logoSub}>GreenFields</span>
             </button>
           </div>
