@@ -255,7 +255,7 @@ const FeedbackForm = () => {
                   "The Adopt a Cow program is wonderful. My kids love getting
                   updates about Daisy!"
                 </p>
-                <div className={styles.testimonialAuthor}>- Nrenda Mai</div>
+                <div className={styles.testimonialAuthor}>- Brenda Mai</div>
                 <div className={styles.testimonialStars}>
                   {[...Array(5)].map((_, i) => (
                     <FaStar key={i} className={styles.smallStar} />

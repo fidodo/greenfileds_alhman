@@ -20,7 +20,7 @@ const Playground = () => {
       id: 1,
       title: "Summer Camp 2025",
       date: "July 15-20, 2025",
-      participants: 45,
+      participants: 8000,
       rating: 4.9,
       image: "./summercamp.jpeg",
       description: {
@@ -138,7 +138,7 @@ const Playground = () => {
                             width="100%"
                             height="100%"
                             src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`}
-                            title="AlhmanEdu Farm Tour"
+                            title="AhlmanEdu Farm Tour"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
