@@ -25,16 +25,32 @@ const Footer = () => {
               Where education and joyful play come together.
             </p>
             <div className={styles.socialLinks}>
-              <a href="# Facebook">
+              <a
+                href="https://www.facebook.com/AlhmanEduGreenFields"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaFacebook />
               </a>
-              <a href="# Instagram">
+              <a
+                href="https://www.instagram.com/AlhmanEduGreenFields"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaInstagram />
               </a>
-              <a href="# Twitter">
+              <a
+                href="https://twitter.com/AlhmanEduGreenFields"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaTwitter />
               </a>
-              <a href="# Youtube">
+              <a
+                href="https://www.youtube.com/AlhmanEduGreenFields"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaYoutube />
               </a>
             </div>

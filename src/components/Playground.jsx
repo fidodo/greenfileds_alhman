@@ -60,7 +60,7 @@ const Playground = () => {
               alt="Table Tennis"
               className={styles.image}
             />
-            <img src="./grill.jpeg" alt="Grill" className={styles.image} />
+            <img src="./Grill.jpeg" alt="Grill" className={styles.image} />
             <img src="./gym.jpeg" alt="Gym" className={styles.image} />
           </div>
         </div>
