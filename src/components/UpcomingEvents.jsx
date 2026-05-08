@@ -46,7 +46,7 @@ const UpcomingEvents = () => {
       title: { FI: "Kevään istutusjuhla", EN: "Spring Planting Festival" },
       category: "festival",
       icon: <FaSeedling size={24} />,
-      date: "March 15, 2025",
+      date: "March 15, 2027",
       time: "10:00 AM - 4:00 PM",
       location: "Main Garden Area",
       description:
@@ -67,7 +67,7 @@ const UpcomingEvents = () => {
       title: { FI: "Nuorten maanviljelijäkursi", EN: "Young Farmers Workshop" },
       category: "workshop",
       icon: <GiFarmer size={24} />,
-      date: "April 5-6, 2025",
+      date: "April 5-6, 2027",
       time: "9:00 AM - 3:00 PM",
       location: "Education Barn",
       description:
@@ -88,7 +88,7 @@ const UpcomingEvents = () => {
       title: { FI: "Kesän keräilyjuhla", EN: "Summer Harvest Festival" },
       category: "festival",
       icon: <GiSunflower size={24} />,
-      date: "July 20, 2025",
+      date: "July 20, 2027",
       time: "11:00 AM - 6:00 PM",
       location: "Harvest Field",
       description:
@@ -112,7 +112,7 @@ const UpcomingEvents = () => {
       },
       category: "workshop",
       icon: <GiCow size={24} />,
-      date: "August 10, 2025",
+      date: "August 10, 2027",
       time: "1:00 PM - 4:00 PM",
       location: "Dairy Barn",
       description:
@@ -133,7 +133,7 @@ const UpcomingEvents = () => {
       title: { FI: "Karkkila & Hallowe'en", EN: "Pumpkin Patch & Halloween" },
       category: "harvest",
       icon: <GiPumpkin size={24} />,
-      date: "October 25-31, 2025",
+      date: "October 25-31, 2027",
       time: "10:00 AM - 8:00 PM",
       location: "North Pasture",
       description:
