@@ -53,7 +53,7 @@ const UpcomingEvents = () => {
         "Join us for our annual spring planting celebration! Learn about organic farming, plant your own vegetables, and enjoy fresh farm-to-table treats.",
       image:
         "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600",
-      price: "$15 Adults | $8 Children | Under 3 Free",
+      price: "€15 Adults | €8 Children | Under 3 Free",
       capacity: "200 people",
       highlights: [
         "Hands-on planting workshops",
@@ -74,7 +74,7 @@ const UpcomingEvents = () => {
         "A two-day immersive workshop for kids aged 8-14. Learn animal care, basic farming skills, and sustainable practices.",
       image:
         "https://images.unsplash.com/photo-1516594798947-e65505dbb29d?w=600",
-      price: "$50 per child",
+      price: "€50 per child",
       capacity: "30 children",
       highlights: [
         "Animal feeding experience",
@@ -95,7 +95,7 @@ const UpcomingEvents = () => {
         "Celebrate the bounty of summer with fresh produce, live entertainment, and family-friendly activities.",
       image:
         "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600",
-      price: "$20 Adults | $12 Children | Under 3 Free",
+      price: "€20 Adults | €12 Children | Under 3 Free",
       capacity: "500 people",
       highlights: [
         "Pick-your-own vegetables",
@@ -119,7 +119,7 @@ const UpcomingEvents = () => {
         "Learn the art of artisanal cheese making from our expert dairy farmers. Take home your own creation!",
       image:
         "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600",
-      price: "$45 per person",
+      price: "€45 per person",
       capacity: "15 people",
       highlights: [
         "Hands-on cheese making",
@@ -139,7 +139,7 @@ const UpcomingEvents = () => {
       description:
         "Pick your own pumpkin, enjoy hayrides, and experience family-friendly Halloween activities.",
       image: "./pumpkin.png",
-      price: "$12 entry | Pumpkin extra",
+      price: "€12 entry | Pumpkin extra",
       capacity: "800 people",
       highlights: [
         "Pumpkin picking",
