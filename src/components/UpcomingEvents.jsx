@@ -28,12 +28,12 @@ const UpcomingEvents = () => {
       icon: <GiSunflower size={24} />,
       date: "May 16, 2026",
       time: "10:00 AM - 2:00 PM",
-      location: "Apiary",
+      location: "Hallilantie Pasture",
       description:
         "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
       image: "./cows.png",
-      price: "$35 per person",
-      capacity: "20 people",
+      price: "free entry",
+      capacity: "8000 people",
       highlights: [
         "Bee suit experience",
         "Honey tasting",
