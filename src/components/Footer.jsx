@@ -25,16 +25,16 @@ const Footer = () => {
               Where education and joyful play come together.
             </p>
             <div className={styles.socialLinks}>
-              <a href="#">
+              <a href="# Facebook">
                 <FaFacebook />
               </a>
-              <a href="#">
+              <a href="# Instagram">
                 <FaInstagram />
               </a>
-              <a href="#">
+              <a href="# Twitter">
                 <FaTwitter />
               </a>
-              <a href="#">
+              <a href="# Youtube">
                 <FaYoutube />
               </a>
             </div>
