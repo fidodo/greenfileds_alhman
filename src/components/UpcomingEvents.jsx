@@ -22,7 +22,30 @@ const UpcomingEvents = () => {
   const events = [
     {
       id: 1,
-      title: "Spring Planting Festival",
+      title: {
+        FI: "Lehmien laitumellelasku 2026",
+        EN: "Cow Release Festival 2026",
+      },
+      category: "workshop",
+      icon: <GiSunflower size={24} />,
+      date: "September 15, 2025",
+      time: "10:00 AM - 12:00 PM",
+      location: "Apiary",
+      description:
+        "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
+      image: "./cows.png",
+      price: "$35 per person",
+      capacity: "20 people",
+      highlights: [
+        "Bee suit experience",
+        "Honey tasting",
+        "Take-home honey jar",
+        "Bee identification guide",
+      ],
+    },
+    {
+      id: 2,
+      title: { FI: "Kevään istutusjuhla", EN: "Spring Planting Festival" },
       category: "festival",
       icon: <FaSeedling size={24} />,
       date: "March 15, 2025",
@@ -42,8 +65,8 @@ const UpcomingEvents = () => {
       ],
     },
     {
-      id: 2,
-      title: "Young Farmers Workshop",
+      id: 3,
+      title: { FI: "Nuorten maanviljelijäkursi", EN: "Young Farmers Workshop" },
       category: "workshop",
       icon: <GiFarmer size={24} />,
       date: "April 5-6, 2025",
@@ -63,8 +86,8 @@ const UpcomingEvents = () => {
       ],
     },
     {
-      id: 3,
-      title: "Summer Harvest Festival",
+      id: 4,
+      title: { FI: "Kesän keräilyjuhla", EN: "Summer Harvest Festival" },
       category: "festival",
       icon: <GiSunflower size={24} />,
       date: "July 20, 2025",
@@ -84,8 +107,11 @@ const UpcomingEvents = () => {
       ],
     },
     {
-      id: 4,
-      title: "Cheese Making Workshop",
+      id: 5,
+      title: {
+        FI: "Juuston valmistus työshoppi",
+        EN: "Cheese Making Workshop",
+      },
       category: "workshop",
       icon: <GiCow size={24} />,
       date: "August 10, 2025",
@@ -105,8 +131,8 @@ const UpcomingEvents = () => {
       ],
     },
     {
-      id: 5,
-      title: "Pumpkin Patch & Halloween",
+      id: 6,
+      title: { FI: "Karkkila & Hallowe'en", EN: "Pumpkin Patch & Halloween" },
       category: "harvest",
       icon: <GiPumpkin size={24} />,
       date: "October 25-31, 2025",
@@ -114,8 +140,7 @@ const UpcomingEvents = () => {
       location: "North Pasture",
       description:
         "Pick your own pumpkin, enjoy hayrides, and experience family-friendly Halloween activities.",
-      image:
-        "https://images.unsplash.com/photo-1535435734705-1f5f1cef8324?w=600",
+      image: "./pumpkin.png",
       price: "$12 entry | Pumpkin extra",
       capacity: "800 people",
       highlights: [
@@ -124,27 +149,6 @@ const UpcomingEvents = () => {
         "Corn maze",
         "Costume parade",
         "Bonfire & s'mores",
-      ],
-    },
-    {
-      id: 6,
-      title: "Beekeeping 101",
-      category: "workshop",
-      icon: <GiSunflower size={24} />,
-      date: "September 15, 2025",
-      time: "10:00 AM - 12:00 PM",
-      location: "Apiary",
-      description:
-        "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
-      image:
-        "https://images.unsplash.com/photo-1581136810088-5ac5d21ac7b3?w=600",
-      price: "$35 per person",
-      capacity: "20 people",
-      highlights: [
-        "Bee suit experience",
-        "Honey tasting",
-        "Take-home honey jar",
-        "Bee identification guide",
       ],
     },
   ];
@@ -201,7 +205,8 @@ const UpcomingEvents = () => {
           {filteredEvents.map((event) => (
             <div key={event.id} className={styles.eventCard}>
               <div className={styles.cardImage}>
-                <img src={event.image} alt={event.title} />
+                <img src={event.image} alt={event.title.FI} />
+
                 <div className={styles.cardCategory}>
                   {event.icon}
                   <span>{event.category}</span>
@@ -209,7 +214,8 @@ const UpcomingEvents = () => {
               </div>
 
               <div className={styles.cardContent}>
-                <h3 className={styles.eventTitle}>{event.title}</h3>
+                <h3 className={styles.eventTitle}>{event.title.FI}</h3>
+                <h3 className={styles.eventTitle}>{event.title.EN}</h3>
 
                 <div className={styles.eventDetails}>
                   <div className={styles.detailItem}>
