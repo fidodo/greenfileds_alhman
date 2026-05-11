@@ -1,13 +1,12 @@
 // src/pages/Cows.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   getAvailableCows,
   adoptCow,
   getAllCows,
   deleteCow,
 } from "../services/api";
-import { FaTrash, FaEdit, FaUserShield } from "react-icons/fa";
-
+import { FaTrash, FaEdit } from "react-icons/fa";
 import styles from "./Cows.module.css";
 
 // Helper function to extract plain text from Strapi Rich Text
@@ -31,7 +30,6 @@ const getImageUrl = (cow) => {
   const BACKEND_URL =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
-  // Try different possible image paths
   if (cow.image?.url) {
     if (cow.image.url.startsWith("/uploads")) {
       return `${BACKEND_URL}${cow.image.url}`;
@@ -46,7 +44,6 @@ const getImageUrl = (cow) => {
     return cow.image[0].url;
   }
 
-  // Check if image is stored as a string
   if (typeof cow.image === "string") {
     if (cow.image.startsWith("/uploads")) {
       return `${BACKEND_URL}${cow.image}`;
@@ -66,6 +63,8 @@ const Cows = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminToken, setAdminToken] = useState("");
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -73,58 +72,99 @@ const Cows = () => {
     message: "",
     monthlyAmount: 45,
   });
+  const [adoptedCowIds, setAdoptedCowIds] = useState([]);
 
-  useEffect(() => {
-    loadCows();
-
-    const token = localStorage.getItem("adminToken");
-    if (token) {
-      setIsAdmin(true);
-      setAdminToken(token);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const loadCows = async () => {
+  const loadCows = useCallback(async () => {
     try {
-      // If admin, load all cows including unavailable ones
+      setLoading(true);
       const data = isAdmin ? await getAllCows() : await getAvailableCows();
-      console.log("Fetched cows:", data);
-      // Remove duplicates by documentId (this prevents showing same cow twice)
+
       const uniqueCows = data.reduce((acc, current) => {
-        const x = acc.find((item) => item.documentId === current.documentId);
-        if (!x) {
-          return acc.concat([current]);
-        } else {
-          return acc;
+        const exists = acc.find(
+          (item) => item.documentId === current.documentId,
+        );
+        if (!exists) {
+          acc.push(current);
         }
+        return acc;
       }, []);
+
       setCows(uniqueCows);
     } catch (error) {
       console.error("Failed to load cows:", error);
+      setMessage({
+        type: "error",
+        text: "Failed to load cows. Please refresh the page.",
+      });
+      setTimeout(() => setMessage({ type: "", text: "" }), 3000);
     } finally {
       setLoading(false);
     }
-  };
+  }, [isAdmin]);
 
-  const handleAdminLogin = (e) => {
-    e.preventDefault();
-    const token = document.getElementById("adminToken").value;
+  useEffect(() => {
+    loadCows();
+    const token = localStorage.getItem("adminToken");
+    const savedAdopted = localStorage.getItem("adoptedCowIds");
+    if (savedAdopted) {
+      setAdoptedCowIds(JSON.parse(savedAdopted));
+    }
     if (token) {
-      localStorage.setItem("adminToken", token);
       setIsAdmin(true);
       setAdminToken(token);
-      setShowAdminLogin(false);
-      loadCows();
+    }
+  }, [loadCows]);
+
+  const handleAdminLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Strapi login endpoint - adjust based on your Strapi version
+      const response = await fetch("http://localhost:1337/api/auth/local", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          identifier: loginEmail,
+          password: loginPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.jwt) {
+        localStorage.setItem("adminToken", data.jwt);
+        localStorage.setItem("adminEmail", loginEmail);
+        setIsAdmin(true);
+        setAdminToken(data.jwt);
+        setShowAdminLogin(false);
+        setMessage({ type: "success", text: "Logged in as Admin!" });
+        setTimeout(() => setMessage({ type: "", text: "" }), 3000);
+        loadCows();
+      } else {
+        setMessage({ type: "error", text: "Invalid credentials" });
+      }
+    } catch (error) {
+      setMessage({ type: "error", text: "Login failed. Please try again." });
     }
   };
+
+  // const handleAdminLogout = () => {
+  //   localStorage.removeItem("adminToken");
+  //   localStorage.removeItem("adminEmail");
+  //   setIsAdmin(false);
+  //   setAdminToken("");
+  //   setLoginEmail("");
+  //   setMessage({ type: "success", text: "Logged out of Admin mode" });
+  //   setTimeout(() => setMessage({ type: "", text: "" }), 3000);
+  //   loadCows();
+  // };
 
   const handleDeleteCow = async (cowId, cowName) => {
     if (window.confirm(`Are you sure you want to delete ${cowName}?`)) {
       try {
         await deleteCow(cowId, adminToken);
         setMessage({ type: "success", text: `${cowName} has been deleted!` });
-        loadCows(); // Refresh the list
+        await loadCows();
         setTimeout(() => setMessage({ type: "", text: "" }), 3000);
       } catch (error) {
         setMessage({
@@ -149,6 +189,26 @@ const Cows = () => {
 
       if (result.success) {
         setMessage({ type: "success", text: result.message });
+
+        // Add to adopted list and save to localStorage
+        const newAdoptedList = [...adoptedCowIds, selectedCow.id];
+        setAdoptedCowIds(newAdoptedList);
+        localStorage.setItem("adoptedCowIds", JSON.stringify(newAdoptedList));
+
+        // Update local cow state
+        setCows((prevCows) =>
+          prevCows.map((cow) => {
+            if (cow.id === selectedCow.id) {
+              return {
+                ...cow,
+                currentAdopters: (cow.currentAdopters || 0) + 1,
+                isAvailable: cow.currentAdopters + 1 < (cow.maxAdopters || 25),
+              };
+            }
+            return cow;
+          }),
+        );
+
         setFormData({
           name: "",
           email: "",
@@ -156,11 +216,10 @@ const Cows = () => {
           message: "",
           monthlyAmount: 45,
         });
-        setTimeout(() => {
-          setSelectedCow(null);
-          setMessage({ type: "", text: "" });
-          loadCows();
-        }, 3000);
+
+        setSelectedCow(null);
+
+        setTimeout(() => setMessage({ type: "", text: "" }), 3000);
       } else {
         setMessage({ type: "error", text: result.error || "Adoption failed" });
       }
@@ -190,7 +249,18 @@ const Cows = () => {
     return (
       <div className={styles.loading}>
         <div className="container">
-          <h2>Loading our lovely cows...</h2>
+          <div className={styles.skeletonGrid}>
+            {[1, 2, 3].map((i) => (
+              <div key={i} className={styles.skeletonCard}>
+                <div className={styles.skeletonImage}></div>
+                <div className={styles.skeletonContent}>
+                  <div className={styles.skeletonTitle}></div>
+                  <div className={styles.skeletonText}></div>
+                  <div className={styles.skeletonButton}></div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -205,7 +275,7 @@ const Cows = () => {
               <div>
                 <h1 className={styles.title}>
                   {isAdmin
-                    ? "Manage Cows (Admin)"
+                    ? "Manage Cows (Admin Mode)"
                     : "Available Cows for Adoption"}
                 </h1>
                 <p className={styles.subtitle}>
@@ -214,14 +284,23 @@ const Cows = () => {
                     : "Meet our gentle herd and choose a cow to sponsor. Each adoption helps support our animal care and educational programs."}
                 </p>
               </div>
-              {!isAdmin && (
+
+              {/* Admin Toggle Button
+              {!isAdmin ? (
                 <button
                   className={styles.adminToggleBtn}
                   onClick={() => setShowAdminLogin(true)}
                 >
-                  <FaUserShield /> Admin
+                  <FaUserShield /> Admin Login
                 </button>
-              )}
+              ) : (
+                <button
+                  className={styles.adminLogoutBtn}
+                  onClick={handleAdminLogout}
+                >
+                  <FaSignOutAlt /> Logout Admin
+                </button>
+              )} */}
             </div>
           </div>
 
@@ -246,19 +325,27 @@ const Cows = () => {
                 </div>
                 <form onSubmit={handleAdminLogin} className={styles.adoptForm}>
                   <div className={styles.formGroup}>
-                    <label>API Token</label>
+                    <label>Email</label>
                     <input
-                      id="adminToken"
-                      type="password"
-                      placeholder="Enter your Strapi API token"
+                      type="email"
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      placeholder="admin@example.com"
                       required
                     />
-                    <small>
-                      Get your token from Strapi Admin → Settings → API Tokens
-                    </small>
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      placeholder="Enter your password"
+                      required
+                    />
                   </div>
                   <button type="submit" className={styles.submitBtn}>
-                    Login as Admin
+                    Login
                   </button>
                 </form>
               </div>
@@ -297,6 +384,9 @@ const Cows = () => {
                       src={getImageUrl(cow)}
                       alt={cow.name}
                       className={styles.cowImage}
+                      onError={(e) => {
+                        e.target.src = "./okei.png";
+                      }}
                     />
                     <div className={styles.adoptionStatus}>
                       {cow.currentAdopters || 0} / {cow.maxAdopters || 25}{" "}
@@ -328,7 +418,9 @@ const Cows = () => {
                       <span>Age: {cow.age || "Unknown"} years</span>
                       <span>Monthly: €{cow.monthlyCost || 45}</span>
                     </div>
-                    {cow.isAvailable !== false ? (
+                    {cow.isAvailable !== false &&
+                    cow.currentAdopters < cow.maxAdopters &&
+                    !adoptedCowIds.includes(cow.id) ? (
                       <button
                         className={styles.adoptBtn}
                         onClick={() => openAdoptionModal(cow)}
@@ -337,7 +429,9 @@ const Cows = () => {
                       </button>
                     ) : (
                       <button className={styles.unavailableBtn} disabled>
-                        Currently Unavailable
+                        {adoptedCowIds.includes(cow.id)
+                          ? "✨ Already Adopted! ✨"
+                          : "Currently Unavailable"}
                       </button>
                     )}
                   </div>
@@ -348,12 +442,9 @@ const Cows = () => {
         </div>
       </section>
 
-      {/* Adoption Modal (same as before) */}
-      {selectedCow && (
-        <div
-          className={styles.modal}
-          onClick={() => !submitting && setSelectedCow(null)}
-        >
+      {/* Adoption Modal */}
+      {selectedCow && !submitting && (
+        <div className={styles.modal} onClick={() => setSelectedCow(null)}>
           <div
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
@@ -363,7 +454,6 @@ const Cows = () => {
               <button
                 className={styles.modalClose}
                 onClick={() => setSelectedCow(null)}
-                disabled={submitting}
               >
                 ×
               </button>
@@ -443,6 +533,18 @@ const Cows = () => {
                 {submitting ? "Processing..." : "Complete Adoption"}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Loading overlay for modal submission */}
+      {submitting && selectedCow && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div className={styles.loadingSpinner}>
+              <div className={styles.spinner}></div>
+              <p>Processing your adoption...</p>
+            </div>
           </div>
         </div>
       )}
