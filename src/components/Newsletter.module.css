@@ -54,6 +54,15 @@
   animation: fadeIn 0.5s ease;
 }
 
+.error {
+  background: var(--error-red);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  animation: fadeIn 0.5s ease;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

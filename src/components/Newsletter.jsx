@@ -1,22 +1,40 @@
 // src/components/Newsletter.jsx
 import React, { useState } from "react";
+import { subscribeToNewsletter } from "../services/api";
 import styles from "./Newsletter.module.css";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
+    if (!email) return;
+
+    setLoading(true);
+    setStatus({ type: "", message: "" });
+
+    try {
+      const result = await subscribeToNewsletter(email);
+      setStatus({
+        type: "success",
+        message: result.message || "Thank you for subscribing!",
+      });
       setEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: error.message || "Something went wrong. Please try again.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className={styles.newsletter}>
+    <section className={styles.newsletter} id="contact">
       <div className="container">
         <div className={styles.content}>
           <div className={styles.textContent}>
@@ -36,14 +54,22 @@ const Newsletter = () => {
               className={styles.input}
               required
             />
-            <button type="submit" className={`btn-primary ${styles.button}`}>
-              Subscribe
+            <button
+              type="submit"
+              disabled={loading}
+              className={`btn-primary ${styles.button}`}
+            >
+              {loading ? "Subscribing..." : "Subscribe"}
             </button>
           </form>
 
-          {subscribed && (
-            <div className={styles.success}>
-              Thank you for subscribing! Check your email for confirmation.
+          {status.message && (
+            <div
+              className={
+                status.type === "success" ? styles.success : styles.error
+              }
+            >
+              {status.message}
             </div>
           )}
         </div>

@@ -1,8 +1,11 @@
 // src/components/AdoptCow.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./AdoptCow.module.css";
 
 const AdoptCow = () => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.adopt}>
       <div className="container">
@@ -24,16 +27,7 @@ const AdoptCow = () => {
               <li>✓ Invitations to farm events</li>
               <li>✓ Visit your adopted cow anytime</li>
             </ul>
-            <button
-              className="btn-primary"
-              onClick={() => {
-                const contactSection = document.getElementById("contact");
-                if (contactSection) {
-                  const offsetTop = contactSection.offsetTop - 80;
-                  window.scrollTo({ top: offsetTop, behavior: "smooth" });
-                }
-              }}
-            >
+            <button className="btn-primary" onClick={() => navigate("/cows")}>
               View Available Cows →
             </button>
           </div>

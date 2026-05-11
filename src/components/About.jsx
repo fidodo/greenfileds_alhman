@@ -44,12 +44,11 @@ const About = () => {
       <div className="container">
         <div className={styles.grid}>
           <div className={styles.content}>
-            <div className={styles.label}>About AlhmanEdu Playground</div>
-            <h2 className={styles.title}>Cultivating Knowledge & Community</h2>
-            <div className={styles.label}>About AlhmanEdu Playground</div>
+            <div className={styles.label}>About AhlmanEdu Playground</div>
+
             <h2 className={styles.title}>Where Play Meets Learning</h2>
             <p className={styles.text}>
-              Nestled on a beautiful 16-hectare campus, AlhmanEdu Playground is
+              Nestled on a beautiful 16-hectare campus, AhlmanEdu Playground is
               more than just a school — it’s a vibrant community space where
               education and joyful play come together. With vast open fields,
               green meadows, and natural surroundings, our campus welcomes

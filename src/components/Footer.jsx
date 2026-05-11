@@ -20,34 +20,34 @@ const Footer = () => {
       <div className="container">
         <div className={styles.grid}>
           <div className={styles.section}>
-            <h3 className={styles.logo}>AlhmanEdu GreenFields</h3>
+            <h3 className={styles.logo}>AhlmanEdu GreenFields</h3>
             <p className={styles.description}>
               Where education and joyful play come together.
             </p>
             <div className={styles.socialLinks}>
               <a
-                href="https://www.facebook.com/AlhmanEduGreenFields"
+                href="https://www.facebook.com/AhmanEduGreenFields"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaFacebook />
               </a>
               <a
-                href="https://www.instagram.com/AlhmanEduGreenFields"
+                href="https://www.instagram.com/AhlmanEduGreenFields"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaInstagram />
               </a>
               <a
-                href="https://twitter.com/AlhmanEduGreenFields"
+                href="https://twitter.com/AhlmanEduGreenFields"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaTwitter />
               </a>
               <a
-                href="https://www.youtube.com/AlhmanEduGreenFields"
+                href="https://www.youtube.com/AhlmanEduGreenFields"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -97,7 +97,7 @@ const Footer = () => {
           <div className={styles.section}>
             <h4 className={styles.heading}>Contact</h4>
             <address className={styles.address}>
-              AlhmanEdu GreenFields, Hallilantie 24 33820 TAMPERE, Finland
+              AhlmanEdu GreenFields, Hallilantie 24 33820 TAMPERE, Finland
               <br />
               ahlman@ahlman.fi sales@ahlman.fi
             </address>
@@ -112,7 +112,7 @@ const Footer = () => {
 
         <div className={styles.bottom}>
           <p>
-            &copy; {new Date().getFullYear()} AlhmanEdu GreenFields. All rights
+            &copy; {new Date().getFullYear()} AhlmanEdu GreenFields. All rights
             reserved.
           </p>
         </div>
