@@ -190,19 +190,21 @@ const Cows = () => {
       if (result.success) {
         setMessage({ type: "success", text: result.message });
 
-        // Add to adopted list and save to localStorage
         const newAdoptedList = [...adoptedCowIds, selectedCow.id];
         setAdoptedCowIds(newAdoptedList);
         localStorage.setItem("adoptedCowIds", JSON.stringify(newAdoptedList));
 
-        // Update local cow state
         setCows((prevCows) =>
           prevCows.map((cow) => {
             if (cow.id === selectedCow.id) {
+              // Calculate new values based on CURRENT cow data
+              const newCurrentAdopters = (cow.currentAdopters || 0) + 1;
+              const maxAdopters = cow.maxAdopters || 25;
+
               return {
                 ...cow,
-                currentAdopters: (cow.currentAdopters || 0) + 1,
-                isAvailable: cow.currentAdopters + 1 < (cow.maxAdopters || 25),
+                currentAdopters: newCurrentAdopters,
+                isAvailable: newCurrentAdopters < maxAdopters,
               };
             }
             return cow;
