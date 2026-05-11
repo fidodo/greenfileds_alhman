@@ -28,7 +28,8 @@ const parseRichText = (richText) => {
 };
 
 const getImageUrl = (cow) => {
-  const BACKEND_URL = "http://localhost:1337"; // Your Strapi URL
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
 
   // Try different possible image paths
   if (cow.image?.url) {
@@ -75,18 +76,20 @@ const Cows = () => {
 
   useEffect(() => {
     loadCows();
-    // Check if admin token exists in localStorage
+
     const token = localStorage.getItem("adminToken");
     if (token) {
       setIsAdmin(true);
       setAdminToken(token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadCows = async () => {
     try {
       // If admin, load all cows including unavailable ones
       const data = isAdmin ? await getAllCows() : await getAvailableCows();
+      console.log("Fetched cows:", data);
       // Remove duplicates by documentId (this prevents showing same cow twice)
       const uniqueCows = data.reduce((acc, current) => {
         const x = acc.find((item) => item.documentId === current.documentId);

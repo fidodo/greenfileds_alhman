@@ -1,4 +1,5 @@
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:1337/api";
+console.log("API URL:", API_URL);
 
 async function fetchAPI(endpoint, options = {}) {
   const response = await fetch(`${API_URL}${endpoint}`, {
@@ -8,7 +9,7 @@ async function fetchAPI(endpoint, options = {}) {
     },
     ...options,
   });
-
+  console.log("API Response:", response);
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
     throw new Error(error.error?.message || "API request failed");
