@@ -107,14 +107,18 @@ const Playground = () => {
             {popularEvents.map((event) => (
               <div key={event.id} className={styles.eventCard}>
                 <div className={styles.eventImageContainer}>
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className={styles.eventImage}
-                    onError={(e) => {
-                      e.target.src = "./picsCow.png";
-                    }}
-                  />
+                  <picture>
+                    <source srcSet={event.image} type="image/webp" />
+                    <source srcSet={event.image} type="image/jpeg" />
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className={styles.eventImage}
+                      onError={(e) => {
+                        e.target.src = "./picsCow.png";
+                      }}
+                    />
+                  </picture>
                   <div className={styles.eventRating}>
                     <FaStar className={styles.ratingStar} />
                     <span>{event.rating}</span>
@@ -149,15 +153,19 @@ const Playground = () => {
                           className={styles.videoThumbnail}
                           onClick={() => setShowVideo(true)}
                         >
-                          <img
-                            src="./cows.png"
-                            alt="Farm Tour Video"
-                            className={styles.thumbnailImage}
-                            onError={(e) => {
-                              e.target.src =
-                                "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400";
-                            }}
-                          />
+                          <picture>
+                            <source srcSet="./cows.webp" type="image/webp" />
+                            <source srcSet="./cows.jpeg" type="image/jpeg" />
+                            <img
+                              src="./cows.jpeg"
+                              alt="Farm Tour Video"
+                              className={styles.thumbnailImage}
+                              onError={(e) => {
+                                e.target.src =
+                                  "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400";
+                              }}
+                            />
+                          </picture>
                           <div className={styles.playButton}>
                             <FaPlay className={styles.playIcon} />
                           </div>
