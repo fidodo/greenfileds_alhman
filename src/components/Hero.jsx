@@ -4,8 +4,7 @@ import styles from "./Hero.module.css";
 
 const Hero = () => {
   const heroStyle = {
-    backgroundImage: 'url("/Ahlmannoverview.webp")',
-
+    backgroundImage: 'url("/ahlmannoverview.webp")',
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundAttachment: "fixed",
