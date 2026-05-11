@@ -134,19 +134,16 @@ const Playground = () => {
                           className={styles.videoThumbnail}
                           onClick={() => setShowVideo(true)}
                         >
-                          <picture>
-                            <source srcSet="./cows.webp" type="image/webp" />
-                            <source srcSet="./cows.jpeg" type="image/jpeg" />
-                            <img
-                              src="./cows.jpeg"
-                              alt="Farm Tour Video"
-                              className={styles.thumbnailImage}
-                              onError={(e) => {
-                                e.target.src =
-                                  "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400";
-                              }}
-                            />
-                          </picture>
+                          <img
+                            src="./cows.jpeg"
+                            alt="Farm Tour Video"
+                            className={styles.thumbnailImage}
+                            onError={(e) => {
+                              e.target.src =
+                                "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400";
+                            }}
+                          />
+
                           <div className={styles.playButton}>
                             <FaPlay className={styles.playIcon} />
                           </div>
