@@ -29,29 +29,26 @@ const parseRichText = (richText) => {
 const getImageUrl = (cow) => {
   const BACKEND_URL =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
+  let imageUrl = "./okei.png";
 
   if (cow.image?.url) {
-    if (cow.image.url.startsWith("/uploads")) {
-      return `${BACKEND_URL}${cow.image.url}`;
-    }
-    return cow.image.url;
+    imageUrl = cow.image.url;
+  } else if (cow.image?.[0]?.url) {
+    imageUrl = cow.image[0].url;
+  } else if (typeof cow.image === "string") {
+    imageUrl = cow.image;
   }
 
-  if (cow.image?.[0]?.url) {
-    if (cow.image[0].url.startsWith("/uploads")) {
-      return `${BACKEND_URL}${cow.image[0].url}`;
-    }
-    return cow.image[0].url;
+  // Add optimization parameters for Strapi images
+  if (imageUrl.startsWith("/uploads")) {
+    // Add quality=80 to reduce file size and format=webp
+    const hasQuery = imageUrl.includes("?");
+    const separator = hasQuery ? "&" : "?";
+    // Strapi might support these params depending on your setup
+    imageUrl = `${BACKEND_URL}${imageUrl}${separator}quality=80&format=webp&width=400&height=300`;
   }
 
-  if (typeof cow.image === "string") {
-    if (cow.image.startsWith("/uploads")) {
-      return `${BACKEND_URL}${cow.image}`;
-    }
-    return cow.image;
-  }
-
-  return "./okei.png";
+  return imageUrl;
 };
 
 const Cows = () => {

@@ -40,7 +40,7 @@ async function fetchAPI(endpoint, options = {}) {
 // ==================== COWS API ====================
 export async function getAvailableCows() {
   const data = await fetchAPI(
-    "/cows?filters[isAvailable][$eq]=true&populate=image&publicationState=live",
+    "/cows?filters[isAvailable][$eq]=true&publicationState=live&fields[0]=name&fields[1]=breed&fields[2]=age&fields[3]=description&fields[4]=currentAdopters&fields[5]=maxAdopters&populate[image][fields][0]=url",
   );
   return data;
 }
