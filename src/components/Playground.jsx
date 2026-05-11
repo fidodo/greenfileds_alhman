@@ -50,49 +50,33 @@ const Playground = () => {
             </ul>
           </div>
           <div className={styles.imageGrid}>
-            <picture>
-              <source srcSet="./applegarden.webp" type="image/webp" />
-              <source srcSet="./applegarden.jpeg" type="image/jpeg" />
-              <img
-                src="./applegarden.jpeg"
-                alt="Apple Garden"
-                className={styles.image}
-                loading="lazy"
-              />
-            </picture>
+            <img
+              src="./applegarden.webp"
+              alt="Apple Garden"
+              className={styles.image}
+              loading="lazy"
+            />
 
-            <picture>
-              <source srcSet="./tableTennis.webp" type="image/webp" />
-              <source srcSet="./tableTennis.jpeg" type="image/jpeg" />
-              <img
-                src="./tableTennis.jpeg"
-                alt="Table Tennis"
-                className={styles.image}
-                loading="lazy"
-              />
-            </picture>
+            <img
+              src="./tableTennis.webp"
+              alt="Table Tennis"
+              className={styles.image}
+              loading="lazy"
+            />
 
-            <picture>
-              <source srcSet="./Grill.webp" type="image/webp" />
-              <source srcSet="./Grill.jpeg" type="image/jpeg" />
-              <img
-                src="./Grill.jpeg"
-                alt="Grill"
-                className={styles.image}
-                loading="lazy"
-              />
-            </picture>
+            <img
+              src="./Grill.webp"
+              alt="Grill"
+              className={styles.image}
+              loading="lazy"
+            />
 
-            <picture>
-              <source srcSet="./gym.webp" type="image/webp" />
-              <source srcSet="./gym.jpeg" type="image/jpeg" />
-              <img
-                src="./gym.jpeg"
-                alt="Gym"
-                className={styles.image}
-                loading="lazy"
-              />
-            </picture>
+            <img
+              src="./gym.webp"
+              alt="Gym"
+              className={styles.image}
+              loading="lazy"
+            />
           </div>
         </div>
 
