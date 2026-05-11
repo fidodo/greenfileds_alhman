@@ -50,18 +50,49 @@ const Playground = () => {
             </ul>
           </div>
           <div className={styles.imageGrid}>
-            <img
-              src="./applegarden.jpeg"
-              alt="Apple Garden"
-              className={styles.image}
-            />
-            <img
-              src="./tableTennis.jpeg"
-              alt="Table Tennis"
-              className={styles.image}
-            />
-            <img src="./Grill.jpeg" alt="Grill" className={styles.image} />
-            <img src="./gym.jpeg" alt="Gym" className={styles.image} />
+            <picture>
+              <source srcSet="./applegarden.webp" type="image/webp" />
+              <source srcSet="./applegarden.jpeg" type="image/jpeg" />
+              <img
+                src="./applegarden.jpeg"
+                alt="Apple Garden"
+                className={styles.image}
+                loading="lazy"
+              />
+            </picture>
+
+            <picture>
+              <source srcSet="./tableTennis.webp" type="image/webp" />
+              <source srcSet="./tableTennis.jpeg" type="image/jpeg" />
+              <img
+                src="./tableTennis.jpeg"
+                alt="Table Tennis"
+                className={styles.image}
+                loading="lazy"
+              />
+            </picture>
+
+            <picture>
+              <source srcSet="./Grill.webp" type="image/webp" />
+              <source srcSet="./Grill.jpeg" type="image/jpeg" />
+              <img
+                src="./Grill.jpeg"
+                alt="Grill"
+                className={styles.image}
+                loading="lazy"
+              />
+            </picture>
+
+            <picture>
+              <source srcSet="./gym.webp" type="image/webp" />
+              <source srcSet="./gym.jpeg" type="image/jpeg" />
+              <img
+                src="./gym.jpeg"
+                alt="Gym"
+                className={styles.image}
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
 

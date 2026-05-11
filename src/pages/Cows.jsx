@@ -379,14 +379,23 @@ const Cows = () => {
               {cows.map((cow) => (
                 <div key={cow.documentId || cow.id} className={styles.cowCard}>
                   <div className={styles.cowImageContainer}>
-                    <img
-                      src={getImageUrl(cow)}
-                      alt={cow.name}
-                      className={styles.cowImage}
-                      onError={(e) => {
-                        e.target.src = "./okei.png";
-                      }}
-                    />
+                    <picture>
+                      <source
+                        srcSet={getImageUrl(cow)}
+                        type="image/webp"
+                        onError={(e) => {
+                          e.target.src = "./okei.png";
+                        }}
+                      />
+                      <img
+                        src={getImageUrl(cow)}
+                        alt={cow.name}
+                        className={styles.cowImage}
+                        onError={(e) => {
+                          e.target.src = "./okei.png";
+                        }}
+                      />
+                    </picture>
                     <div className={styles.adoptionStatus}>
                       {cow.currentAdopters || 0} / {cow.maxAdopters || 25}{" "}
                       Adoptions
