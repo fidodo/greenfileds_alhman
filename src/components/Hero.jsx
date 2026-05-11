@@ -48,7 +48,7 @@ const Hero = () => {
               Open Spaces. Real Experiences
             </span>
           </h1>
-          <h2 className={styles.subtitle}>Where Education Meets Agriculture</h2>
+          <h2 className={styles.subtitle}>Where Education Meets Nature</h2>
           <p className={styles.description}>
             Step into 16 hectares of beautiful open land designed for play,
             exploration, and connection. From free play in the fields with
