@@ -127,6 +127,13 @@ export async function submitFeedback(feedbackData) {
   });
 }
 
+export async function getFeedbacks() {
+  const data = await fetchAPI(
+    "/feedbacks?sort=createdAt:desc&publicationState=live",
+  );
+  return data;
+}
+
 // ==================== CONTACT FORM API ====================
 export async function submitContact(contactData) {
   return fetchAPI("/contact-submissions", {

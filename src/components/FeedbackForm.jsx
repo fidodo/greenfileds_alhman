@@ -1,15 +1,15 @@
 // src/components/FeedbackForm.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaStar,
   FaUser,
   FaEnvelope,
   FaComment,
   FaSmile,
-  FaFrown,
   FaMeh,
 } from "react-icons/fa";
 import styles from "./FeedbackForm.module.css";
+import { submitFeedback, getFeedbacks } from "../services/api";
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
@@ -18,33 +18,90 @@ const FeedbackForm = () => {
     rating: 0,
     experience: "",
     suggestions: "",
-    wouldRecommend: "yes",
+    wouldRecommend: true,
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [hoverRating, setHoverRating] = useState(0);
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [stats, setStats] = useState({
+    averageRating: 4.8,
+    totalReviews: 500,
+    happyPercentage: 98,
+  });
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    loadFeedbacks();
+  }, []);
+
+  const loadFeedbacks = async () => {
+    try {
+      const data = await getFeedbacks();
+      if (data && data.length > 0) {
+        setFeedbacks(data);
+        // Calculate real stats from data
+        const total = data.length;
+        const avgRating =
+          data.reduce((sum, f) => sum + (f.rating || 0), 0) / total;
+        const happyCount = data.filter((f) => f.wouldRecommend === true).length;
+        setStats({
+          averageRating: avgRating.toFixed(1) || 4.8,
+          totalReviews: total,
+          happyPercentage: Math.round((happyCount / total) * 100) || 98,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to load feedbacks:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would send the data to your backend
-    console.log("Feedback submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      rating: 0,
-      experience: "",
-      suggestions: "",
-      wouldRecommend: "yes",
-    });
+    setLoading(true);
+    setError("");
+
+    try {
+      const result = await submitFeedback({
+        name: formData.name,
+        email: formData.email,
+        rating: formData.rating,
+        experience: formData.experience,
+        suggestions: formData.suggestions || "",
+        wouldRecommend: formData.wouldRecommend,
+      });
+
+      console.log("Feedback submitted:", result);
+      setSubmitted(true);
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        rating: 0,
+        experience: "",
+        suggestions: "",
+        wouldRecommend: true,
+      });
+
+      // Refresh feedbacks list
+      await loadFeedbacks();
+
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      console.error("Submit error:", err);
+      setError("Failed to submit feedback. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
+    const { name, value, type } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: type === "radio" ? value === "true" : value,
     });
   };
 
@@ -72,6 +129,12 @@ const FeedbackForm = () => {
                 <FaSmile size={24} />
                 <h3>Thank You!</h3>
                 <p>Your feedback has been submitted successfully.</p>
+              </div>
+            )}
+
+            {error && (
+              <div className={styles.errorMessage}>
+                <p>{error}</p>
               </div>
             )}
 
@@ -178,8 +241,8 @@ const FeedbackForm = () => {
                     <input
                       type="radio"
                       name="wouldRecommend"
-                      value="yes"
-                      checked={formData.wouldRecommend === "yes"}
+                      value="true"
+                      checked={formData.wouldRecommend === true}
                       onChange={handleChange}
                     />
                     <FaSmile /> Yes, definitely
@@ -188,21 +251,11 @@ const FeedbackForm = () => {
                     <input
                       type="radio"
                       name="wouldRecommend"
-                      value="maybe"
-                      checked={formData.wouldRecommend === "maybe"}
+                      value="false"
+                      checked={formData.wouldRecommend === false}
                       onChange={handleChange}
                     />
                     <FaMeh /> Maybe
-                  </label>
-                  <label className={styles.radioLabel}>
-                    <input
-                      type="radio"
-                      name="wouldRecommend"
-                      value="no"
-                      checked={formData.wouldRecommend === "no"}
-                      onChange={handleChange}
-                    />
-                    <FaFrown /> No
                   </label>
                 </div>
               </div>
@@ -210,8 +263,9 @@ const FeedbackForm = () => {
               <button
                 type="submit"
                 className={`btn-primary ${styles.submitBtn}`}
+                disabled={loading}
               >
-                Submit Feedback →
+                {loading ? "Submitting..." : "Submit Feedback →"}
               </button>
             </form>
           </div>
@@ -220,14 +274,16 @@ const FeedbackForm = () => {
           <div className={styles.statsContainer}>
             <div className={styles.statCard}>
               <div className={styles.statIcon}>⭐</div>
-              <div className={styles.statValue}>4.8</div>
+              <div className={styles.statValue}>{stats.averageRating}</div>
               <div className={styles.statLabel}>Average Rating</div>
-              <div className={styles.statSubtext}>From 500+ reviews</div>
+              <div className={styles.statSubtext}>
+                From {stats.totalReviews}+ reviews
+              </div>
             </div>
 
             <div className={styles.statCard}>
               <div className={styles.statIcon}>😊</div>
-              <div className={styles.statValue}>98%</div>
+              <div className={styles.statValue}>{stats.happyPercentage}%</div>
               <div className={styles.statLabel}>Happy Visitors</div>
               <div className={styles.statSubtext}>Would return again</div>
             </div>
@@ -241,27 +297,49 @@ const FeedbackForm = () => {
 
             <div className={styles.testimonialPreview}>
               <h3>What Visitors Say</h3>
-              <div className={styles.testimonial}>
-                <p>"An amazing educational experience for the whole family!"</p>
-                <div className={styles.testimonialAuthor}>- Ville Tampere</div>
-                <div className={styles.testimonialStars}>
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className={styles.smallStar} />
-                  ))}
-                </div>
-              </div>
-              <div className={styles.testimonial}>
-                <p>
-                  "The Adopt a Cow program is wonderful. My kids love getting
-                  updates about Daisy!"
-                </p>
-                <div className={styles.testimonialAuthor}>- Brenda Mai</div>
-                <div className={styles.testimonialStars}>
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className={styles.smallStar} />
-                  ))}
-                </div>
-              </div>
+              {feedbacks.length > 0 ? (
+                feedbacks.slice(0, 2).map((feedback, index) => (
+                  <div key={index} className={styles.testimonial}>
+                    <p>"{feedback.experience?.substring(0, 100)}..."</p>
+                    <div className={styles.testimonialAuthor}>
+                      - {feedback.name}
+                    </div>
+                    <div className={styles.testimonialStars}>
+                      {[...Array(feedback.rating || 5)].map((_, i) => (
+                        <FaStar key={i} className={styles.smallStar} />
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className={styles.testimonial}>
+                    <p>
+                      "An amazing educational experience for the whole family!"
+                    </p>
+                    <div className={styles.testimonialAuthor}>
+                      - Ville Tampere
+                    </div>
+                    <div className={styles.testimonialStars}>
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className={styles.smallStar} />
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.testimonial}>
+                    <p>
+                      "The Adopt a Cow program is wonderful. My kids love
+                      getting updates about Daisy!"
+                    </p>
+                    <div className={styles.testimonialAuthor}>- Brenda Mai</div>
+                    <div className={styles.testimonialStars}>
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className={styles.smallStar} />
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
