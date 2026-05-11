@@ -361,7 +361,7 @@ const UpcomingEvents = () => {
       description:
         "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
       image: "./cows.png",
-      imageWebp: "./cows.webp",
+
       price: "free entry",
       capacity: "8000 people",
       highlights: [
@@ -477,7 +477,7 @@ const UpcomingEvents = () => {
       description:
         "Pick your own pumpkin, enjoy hayrides, and experience family-friendly Halloween activities.",
       image: "./pumpkin.png",
-      imageWebp: "./pumpkin.webp",
+
       price: "€12 entry | Pumpkin extra",
       capacity: "800 people",
       highlights: [

@@ -107,18 +107,15 @@ const Playground = () => {
             {popularEvents.map((event) => (
               <div key={event.id} className={styles.eventCard}>
                 <div className={styles.eventImageContainer}>
-                  <picture>
-                    <source srcSet={event.image} type="image/webp" />
-                    <source srcSet={event.image} type="image/jpeg" />
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className={styles.eventImage}
-                      onError={(e) => {
-                        e.target.src = "./picsCow.png";
-                      }}
-                    />
-                  </picture>
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className={styles.eventImage}
+                    onError={(e) => {
+                      e.target.src = "./picsCow.png";
+                    }}
+                  />
+
                   <div className={styles.eventRating}>
                     <FaStar className={styles.ratingStar} />
                     <span>{event.rating}</span>
