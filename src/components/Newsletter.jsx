@@ -18,6 +18,7 @@ const Newsletter = () => {
 
     try {
       const result = await subscribeToNewsletter(email);
+      console.log("Subscription result:", result);
       setStatus({
         type: "success",
         message: result.message || "Thank you for subscribing!",
