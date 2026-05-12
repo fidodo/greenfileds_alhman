@@ -108,9 +108,9 @@ export async function getUpcomingEvents() {
 
 // ==================== NEWSLETTER API ====================
 export async function subscribeToNewsletter(email) {
-  return fetchAPI("/newsletter/subscribe", {
+  return fetchAPI("/subscribers", {
     method: "POST",
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ data: { email, isActive: true } }),
   });
 }
 
