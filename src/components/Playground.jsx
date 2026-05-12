@@ -22,7 +22,7 @@ const Playground = () => {
       date: "July 15-20, 2025",
       participants: 8000,
       rating: 4.9,
-      image: "./summercamp.jpeg",
+      image: "./picsCow.webp",
       description: {
         fi: "Lehmien laitumellelasku 2026",
         en: "Cow Release Festival 2026 - Celebrate the joy of nature as we release our cows into the pasture for the summer season. Enjoy farm activities, games, and a picnic on the grass. A beloved tradition that marks the start of our outdoor adventures!",
@@ -135,7 +135,7 @@ const Playground = () => {
                           onClick={() => setShowVideo(true)}
                         >
                           <img
-                            src="./cows.jpeg"
+                            src="./cows.webp"
                             alt="Farm Tour Video"
                             className={styles.thumbnailImage}
                             onError={(e) => {
