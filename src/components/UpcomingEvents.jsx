@@ -31,7 +31,7 @@ const UpcomingEvents = () => {
       location: "Hallilantie Pasture",
       description:
         "Discover the fascinating world of bees and learn basic beekeeping skills from our master beekeeper.",
-      image: "./cows.png",
+      image: "./cows.webp",
 
       price: "free entry",
       capacity: "8000 people",
@@ -147,7 +147,7 @@ const UpcomingEvents = () => {
       location: "North Pasture",
       description:
         "Pick your own pumpkin, enjoy hayrides, and experience family-friendly Halloween activities.",
-      image: "./pumpkin.png",
+      image: "./pumpkin.webp",
 
       price: "€12 entry | Pumpkin extra",
       capacity: "800 people",
@@ -220,7 +220,7 @@ const UpcomingEvents = () => {
                     alt={event.title.FI}
                     className={styles.eventImage}
                     onError={(e) => {
-                      e.target.src = "./picsCow.png";
+                      e.target.src = "./picsCow.webp";
                     }}
                   />
                 </picture>
@@ -288,7 +288,7 @@ const UpcomingEvents = () => {
                 alt={selectedEvent.title.EN}
                 className={styles.modalImage}
                 onError={(e) => {
-                  e.target.src = "./picsCow.png";
+                  e.target.src = "./picsCow.webp";
                 }}
               />
             </picture>

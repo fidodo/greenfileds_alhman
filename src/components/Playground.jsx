@@ -96,7 +96,7 @@ const Playground = () => {
                     alt={event.title}
                     className={styles.eventImage}
                     onError={(e) => {
-                      e.target.src = "./picsCow.png";
+                      e.target.src = "./picsCow.webp";
                     }}
                   />
 

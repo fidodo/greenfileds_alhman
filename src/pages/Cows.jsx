@@ -29,7 +29,7 @@ const parseRichText = (richText) => {
 const getImageUrl = (cow) => {
   const BACKEND_URL =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:1337";
-  let imageUrl = "./okei.png";
+  let imageUrl = "./okei.webp"; // Default placeholder image
 
   if (cow.image?.url) {
     imageUrl = cow.image.url;
@@ -384,7 +384,7 @@ const Cows = () => {
                         srcSet={getImageUrl(cow)}
                         type="image/webp"
                         onError={(e) => {
-                          e.target.src = "./okei.png";
+                          e.target.src = "./okei.webp";
                         }}
                       />
                       <img
@@ -392,7 +392,7 @@ const Cows = () => {
                         alt={cow.name}
                         className={styles.cowImage}
                         onError={(e) => {
-                          e.target.src = "./okei.png";
+                          e.target.src = "./okei.webp";
                         }}
                       />
                     </picture>

@@ -11,7 +11,7 @@ const AdoptCow = () => {
       <div className="container">
         <div className={styles.content}>
           <div className={styles.imageContainer}>
-            <img src="./okei.png" alt="Adopt a Cow" className={styles.image} />
+            <img src="./okei.webp" alt="Adopt a Cow" className={styles.image} />
           </div>
           <div className={styles.textContent}>
             <div className={styles.sectionLabel}>Adopt a Cow Program</div>
