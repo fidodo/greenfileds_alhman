@@ -141,3 +141,10 @@ export async function submitContact(contactData) {
     body: JSON.stringify({ data: contactData }),
   });
 }
+
+export async function getContactSubmissions() {
+  const data = await fetchAPI(
+    "/contact-submissions?sort=createdAt:desc&publicationState=live",
+  );
+  return data;
+}
